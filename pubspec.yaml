@@ -1,6 +1,6 @@
 name: codekit
 description: A development kit for Flutter projects, providing common utilities and extensions.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/venhdev/flutter_codekit
 repository: https://github.com/venhdev/flutter_codekit
 

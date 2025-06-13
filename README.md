@@ -11,7 +11,7 @@ To use `codekit`, add it to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  codekit: ^0.0.1 # Or the latest version
+  codekit: ^0.0.2 # Or the latest version
 ```
 
 Then, run `flutter pub get` or `dart pub get`.
