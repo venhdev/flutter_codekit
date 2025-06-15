@@ -10,7 +10,7 @@ String indentJson(dynamic data, {String? indent}) {
   }
 }
 
-String stringify(dynamic input) {
+String stringify(Object? input, {String? indent}) {
   if (input == null) {
     return ''; // Handles null values, returns an empty string
   }
@@ -26,7 +26,7 @@ String stringify(dynamic input) {
   if (finalText is Map || finalText is Iterable) {
     try {
       // Using JsonEncoder with no indent for a compact string
-      var encoder = const JsonEncoder.withIndent(null);
+      var encoder = JsonEncoder.withIndent(indent);
       return encoder.convert(finalText);
     } catch (e) {
       // Fallback in case of JSON encoding errors (e.g., non-serializable objects within Map/Iterable)
