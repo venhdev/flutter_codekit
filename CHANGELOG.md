@@ -1,3 +1,7 @@
+## 0.0.3
+
+- customable indent
+
 ## 0.0.2
 
 - add error handling and custom indent to indentJson
