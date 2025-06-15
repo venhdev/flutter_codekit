@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-String indentJson(dynamic data, {String? indent}) {
+String indentJson(dynamic data, {String? indent = '  '}) {
   try {
-    final encoder = JsonEncoder.withIndent(indent ?? '  ');
+    final encoder = JsonEncoder.withIndent(indent);
     final jsonStr = encoder.convert(data);
     return jsonStr;
   } catch (e) {
