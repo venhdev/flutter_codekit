@@ -1,12 +1,36 @@
 import 'dart:convert';
 
-String indentJson(dynamic data, {String? indent = '  '}) {
+String indentJson(
+  dynamic data, {
+  String? indent = '  ',
+  int maxFieldLength = 100,
+}) {
   try {
+    final truncated = _truncateJsonFields(data, maxFieldLength);
     final encoder = JsonEncoder.withIndent(indent);
-    final jsonStr = encoder.convert(data);
-    return jsonStr;
+    return encoder.convert(truncated);
   } catch (e) {
     return stringify(data);
+  }
+}
+
+dynamic _truncateJsonFields(
+  dynamic input,
+  int maxLen, {
+  String truncateTag = '...',
+}) {
+  if (input is Map) {
+    return input.map(
+      (key, value) => MapEntry(key, _truncateJsonFields(value, maxLen)),
+    );
+  } else if (input is List) {
+    return input.map((e) => _truncateJsonFields(e, maxLen)).toList();
+  } else if (input is String) {
+    return input.length > maxLen
+        ? '${input.substring(0, maxLen)}$truncateTag'
+        : input;
+  } else {
+    return input;
   }
 }
 

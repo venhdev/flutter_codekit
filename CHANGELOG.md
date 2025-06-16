@@ -1,6 +1,6 @@
-## 0.0.3
+## 0.0.4
 
-- customable indent
+- customable indent, maxFieldLength in `indentJson`.
 
 ## 0.0.2
 

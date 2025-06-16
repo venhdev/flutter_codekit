@@ -36,6 +36,10 @@ void main() {
   print('Indented JSON:');
   print(indentJson(data));
 
+  // Example of indentJson with maxFieldLength
+  print('\nIndented JSON with maxFieldLength:');
+  print(indentJson(data, maxFieldLength: 20));
+
   // Example of stringify
   print('\nStringify a function:');
   print(stringify(() => 'This is from a function'));
