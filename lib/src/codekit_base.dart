@@ -3,10 +3,12 @@ import 'dart:convert';
 String indentJson(
   dynamic data, {
   String? indent = '  ',
-  int maxFieldLength = 100,
+  int? maxFieldLength = 500,
 }) {
   try {
-    final truncated = _truncateJsonFields(data, maxFieldLength);
+    final truncated = maxFieldLength != null
+        ? _truncateJsonFields(data, maxFieldLength)
+        : data;
     final encoder = JsonEncoder.withIndent(indent);
     return encoder.convert(truncated);
   } catch (e) {

@@ -1,3 +1,7 @@
+## 0.0.5
+
+- `maxFieldLength` in `indentJson` is now nullable, and defaults to 500.
+
 ## 0.0.4
 
 - customable indent, maxFieldLength in `indentJson`.
