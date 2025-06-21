@@ -122,7 +122,8 @@ void main() {
           'Hello, world! Welcome to the world of Dart!',
           replacements: {'world': 'universe'},
         );
-        expect(result, equals('Hello, universe! Welcome to the universe of Dart!'));
+        expect(result,
+            equals('Hello, universe! Welcome to the universe of Dart!'));
       });
 
       test('should handle multiple replacements in string input', () {
