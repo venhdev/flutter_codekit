@@ -108,6 +108,139 @@ void main() {
         expect(result, equals(data.toString()));
         expect(stringify(data), isNot(throwsException));
       });
+
+      test('should replace strings in simple string input', () {
+        final result = stringify(
+          'Hello, world!',
+          replacements: {'world': 'Dart'},
+        );
+        expect(result, equals('Hello, Dart!'));
+      });
+
+      test('should replace multiple occurrences in string input', () {
+        final result = stringify(
+          'Hello, world! Welcome to the world of Dart!',
+          replacements: {'world': 'universe'},
+        );
+        expect(result, equals('Hello, universe! Welcome to the universe of Dart!'));
+      });
+
+      test('should handle multiple replacements in string input', () {
+        final result = stringify(
+          'Hello, world! This is a test.',
+          replacements: {
+            'Hello': 'Hi',
+            'test': 'demo',
+          },
+        );
+        expect(result, equals('Hi, world! This is a demo.'));
+      });
+
+      test('should replace strings in map values', () {
+        final data = {
+          'message': 'Hello, world!',
+          'nested': {'text': 'This is a test'},
+        };
+        final result = stringify(
+          data,
+          replacements: {
+            'Hello': 'Hi',
+            'test': 'demo',
+          },
+          jsonIndent: '  ',
+        );
+        expect(
+          result,
+          equals(
+            '{\n  "message": "Hi, world!",\n  "nested": {\n    "text": "This is a demo"\n  }\n}',
+          ),
+        );
+      });
+
+      test('should replace strings in list items', () {
+        final data = [
+          'Hello, world!',
+          {'text': 'This is a test'},
+          ['nested', 'test', 'list'],
+        ];
+        final result = stringify(
+          data,
+          replacements: {
+            'test': 'demo',
+            'Hello': 'Hi',
+          },
+          jsonIndent: '  ',
+        );
+        expect(
+          result,
+          equals(
+            '[\n  "Hi, world!",\n  {\n    "text": "This is a demo"\n  },\n  [\n    "nested",\n    "demo",\n    "list"\n  ]\n]',
+          ),
+        );
+      });
+
+      test('should handle complex nested structures with replacements', () {
+        final data = {
+          'user': {
+            'name': 'John Doe',
+            'bio': 'This is a test bio with sensitive information',
+            'addresses': [
+              {
+                'type': 'home',
+                'line1': '123 Test St',
+                'city': 'Testville',
+              },
+              {
+                'type': 'work',
+                'line1': '456 Example Ave',
+                'city': 'Example City',
+              },
+            ],
+          },
+          'metadata': {
+            'createdAt': '2023-01-01T00:00:00Z',
+            'tags': ['test', 'demo', 'sensitive'],
+          },
+        };
+
+        final result = stringify(
+          data,
+          replacements: {
+            'sensitive': 'REDACTED',
+            'Test': 'Demo',
+            'Example': 'Sample',
+          },
+          jsonIndent: '  ',
+        );
+
+        expect(result, contains('REDACTED information'));
+        expect(result, contains('Demo St'));
+        expect(result, contains('Sample City'));
+        expect(result, contains('REDACTED')); // In tags array
+      });
+
+      test('should handle code block replacements', () {
+        final codeBlock = '''
+'''
+            '```dart\n'
+            'void main() {\n'
+            '  print("Hello, world!");\n'
+            '}\n'
+            '```';
+
+        final result = stringify(
+          {'code': codeBlock},
+          replacements: {
+            'print': 'log',
+            'Hello': 'Hi',
+          },
+          jsonIndent: '  ',
+        );
+
+        expect(result, contains('log'));
+        expect(result, contains('Hi, world'));
+        expect(result, contains('```dart')); // Preserves code block markers
+      });
     });
   });
 }

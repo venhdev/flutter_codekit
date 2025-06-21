@@ -1,4 +1,6 @@
-## 0.0.7
+# CHANGELOG
+
+## 0.0.8
 
 - Add retry utility with configurable retry logic
 - Enhance JSON formatting with better truncation and replacements

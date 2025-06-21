@@ -134,9 +134,13 @@ String stringify(
     return ''; // Handles null values, returns an empty string
   }
   if (input is String) {
-    return maxLen != null && input.length > maxLen
-        ? input.substring(0, maxLen)
-        : input; // If it's already a string, return it directly (truncated if needed)
+    var result = input;
+    if (replacements != null) {
+      result = _replaceInString(result, replacements);
+    }
+    return maxLen != null && result.length > maxLen
+        ? result.substring(0, maxLen)
+        : result;
   }
 
   // If it's a function, call it to get the actual value
