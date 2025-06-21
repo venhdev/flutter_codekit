@@ -17,6 +17,7 @@ pubspec.lock
 .history
 .svn/
 migrate_working_dir/
+cli/
 
 # IntelliJ related
 *.iml

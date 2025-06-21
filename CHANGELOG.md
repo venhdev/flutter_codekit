@@ -1,3 +1,8 @@
+## 0.0.7
+
+- Add retry utility with configurable retry logic
+- Enhance JSON formatting with better truncation and replacements
+
 ## 0.0.5
 
 - `maxFieldLength` in `indentJson` is now nullable, and defaults to 500.
